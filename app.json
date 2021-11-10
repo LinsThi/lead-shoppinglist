@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "lead-shoppinglist",
+    "slug": "lead-shoppinglist",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "lead-shoppinglist"
+}
