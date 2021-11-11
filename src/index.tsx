@@ -1,16 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { View } from 'react-native';
 
-import { Login } from './screens/Login';
+import { RootStack } from './routes';
 
 const App: React.FC = () => {
-  return (
-    <>
-      <StatusBar style="auto" />
-      <Login />
-    </>
-  );
+  return <RootStack />;
 };
 
 export default App;
