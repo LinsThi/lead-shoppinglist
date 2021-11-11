@@ -9,6 +9,11 @@ module.exports = function(api) {
           rootPathSuffix: 'src',
         },
       ],
-    ]
+    ],
+    env: {
+      production: {
+        plugins: ['react-native-paper/babel'],
+      },
+    },
   };
 };
