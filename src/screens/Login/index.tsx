@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Button } from '~/components/Button';
-import { Input } from '~/components/Input';
+import Icon from '~/components/Icon';
+import Input from '~/components/Input';
 
 import logoIMG from '../../assets/groceries.png';
 
 import * as S from './styles';
 
 export function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -21,8 +26,23 @@ export function Login() {
         </S.ContainerImage>
 
         <S.ContainerInputs>
-          <Input name="Digite seu username" />
-          <Input name="Digite sua senha" password />
+          <Input
+            iconLeft="person"
+            iconType="ionicons"
+            placeholder="Digite seu username"
+            value={username}
+            onChangeText={setUsername}
+          />
+
+          <Input
+            iconLeft="lock"
+            placeholder="Digite sua senha"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+            actionIcon={() => setShowPassword(!showPassword)}
+            iconRight={showPassword ? 'eye-off' : 'eye'}
+          />
         </S.ContainerInputs>
 
         <S.ContainerButton>
