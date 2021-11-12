@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
+import { BaseBoard } from '~/components/BaseBoard';
 import { CheckBox } from '~/components/CheckBox';
-import { FilterBar } from '~/components/FilterBar';
+import FilterBar from '~/components/FilterBar';
 
 import { listCategory } from './mock';
 
 import * as S from './styles';
 
 export function Home() {
+  const [filter, setFilter] = useState('');
+
   function renderProduct({ item }: any) {
     return (
       <S.ContainerProduct>
@@ -38,16 +42,32 @@ export function Home() {
   }
 
   return (
-    <S.Container>
-      <S.ContainerFilter>
-        <FilterBar />
-      </S.ContainerFilter>
-      <S.ListCategory
-        data={listCategory}
-        extraData={listCategory}
-        keyExtractor={(item, index) => String(index)}
-        renderItem={renderCategory}
-      />
-    </S.Container>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
+      enabled={false}
+    >
+      <S.Container>
+        <S.ContainerFilter>
+          <FilterBar
+            iconLeft="search"
+            iconType="font-5"
+            placeholder="Buscar Produtos"
+            value={filter}
+            onChangeText={setFilter}
+          />
+        </S.ContainerFilter>
+        <S.ListCategory
+          data={listCategory}
+          extraData={listCategory}
+          keyExtractor={(item, index) => String(index)}
+          renderItem={renderCategory}
+        />
+
+        <S.ContainerBase>
+          <BaseBoard />
+        </S.ContainerBase>
+      </S.Container>
+    </KeyboardAvoidingView>
   );
 }

@@ -19,11 +19,16 @@ export const ContainerProduct = styled.View`
   flex-direction: row;
   margin-bottom: 10px;
   justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerProductInfo = styled.View`
   flex: 1;
   margin-left: 15px;
+`;
+
+export const ContainerBase = styled.View`
+  flex: 0.12;
 `;
 
 export const ListCategory = styled.FlatList`
