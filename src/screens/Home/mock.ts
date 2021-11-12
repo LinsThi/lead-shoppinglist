@@ -14,6 +14,7 @@ export const listCategory: CategoryProps[] = [
     listItens: [
       { id: 1, name: 'Detergente', unity: 3, product_url: `${detergenteImg}` },
       { id: 2, name: 'Sabão', unity: 3, product_url: `${sabaoImg}` },
+      { id: 3, name: 'Sabão 2', unity: 3, product_url: `${sabaoImg}` },
     ],
   },
   {
@@ -22,6 +23,7 @@ export const listCategory: CategoryProps[] = [
     listItens: [
       { id: 1, name: 'Picanha', unity: 3, product_url: `${carneImg}` },
       { id: 2, name: 'Frango', unity: 3, product_url: `${frangoImg}` },
+      { id: 3, name: 'Picanha 2', unity: 3, product_url: `${carneImg}` },
     ],
   },
   {
