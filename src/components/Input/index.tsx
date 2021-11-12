@@ -1,22 +1,46 @@
-import { Feather, AntDesign } from '@expo/vector-icons';
 import React from 'react';
+import type { TextInputProps } from 'react-native';
 
 import * as S from './styles';
 
 interface InputProps {
-  name: string;
-  password?: boolean;
+  iconRight?: string;
+  iconLeft?: string;
+  iconType?: string;
+  actionIcon?: () => void;
 }
 
-export function Input({ name, password = false }: InputProps) {
+const Input: React.FC<TextInputProps & InputProps> = ({
+  iconRight,
+  iconLeft,
+  iconType,
+  actionIcon,
+  ...rest
+}: InputProps) => {
   return (
-    <S.Container>
-      {!password ? (
-        <Feather name="user" size={26} color="gray" />
-      ) : (
-        <AntDesign name="lock" size={26} color="gray" />
-      )}
-      <S.InputLogin placeholder={name} />
-    </S.Container>
+    <S.InputWrapper>
+      <S.ContainerInputIcon>
+        {iconLeft && (
+          <S.IconInput
+            iconType={iconType}
+            name={iconLeft}
+            iconColor="#a5a5a5"
+            size={25}
+          />
+        )}
+        <S.Container>
+          <S.ContainerInput>
+            <S.InputLogin {...rest} iconRight={iconRight} />
+            {iconRight && (
+              <S.Touchable onPress={() => actionIcon && actionIcon()}>
+                <S.IconInput name={iconRight} size={25} iconColor="#a5a5a5" />
+              </S.Touchable>
+            )}
+          </S.ContainerInput>
+        </S.Container>
+      </S.ContainerInputIcon>
+    </S.InputWrapper>
   );
-}
+};
+
+export default Input;
