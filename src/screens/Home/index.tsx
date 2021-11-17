@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { BaseBoard } from '~/components/BaseBoard';
@@ -9,13 +9,27 @@ import { listCategory } from './mock';
 
 import * as S from './styles';
 
-export function Home() {
+export function Home({ navigation }: any) {
   const [filter, setFilter] = useState('');
+
+  const goToCart = () => {
+    // navigation.navigate();
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      iconRightName: 'md-cart',
+      iconRightType: 'ionicons',
+      actionButtonRight: goToCart,
+      iconColor: '#fff',
+      title: 'Bem vindo Mayh',
+    });
+  }, []);
 
   function renderProduct({ item }: any) {
     return (
       <S.ContainerProduct>
-        <S.ProductImg source={item.product_url} />
+        <S.ProductImg source={{ uri: item.product_url }} />
         <S.ContainerProductInfo>
           <S.ProductText>{item.name}</S.ProductText>
           <S.ProductUnity>{item.unity} un</S.ProductUnity>
