@@ -5,7 +5,7 @@ export const Container = styled.View`
 `;
 
 export const ButtonLogin = styled.TouchableOpacity`
-  background: #fff;
+  background: ${({ theme }) => theme.Colors.WHITE};
   width: 200px;
   height: 53px;
 
@@ -16,5 +16,5 @@ export const ButtonLogin = styled.TouchableOpacity`
 `;
 
 export const Name = styled.Text`
-  color: #4299e1;
+  color: ${({ theme }) => theme.Colors.BLUE};
 `;

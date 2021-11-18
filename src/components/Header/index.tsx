@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Theme from '~/themes';
+
 import * as S from './styles';
 
 interface HeaderProps {
@@ -17,14 +19,13 @@ export function Header({
 }: HeaderProps) {
   return (
     <S.Container>
-      <S.StatusBar backgroundColor="#4299e1" />
+      <S.StatusBar backgroundColor={Theme.light.Colors.BLUE} />
       {enableNavigation && (
         <S.ButtonLeft onPress={() => navigation.goBack()}>
           <S.IconLeft
             iconType={options.iconLeftType}
             name={options.iconLeftName}
             iconColor={options.iconColor}
-            size={25}
           />
         </S.ButtonLeft>
       )}
@@ -37,7 +38,6 @@ export function Header({
             iconType={options.iconRightType}
             name={options.iconRightName}
             iconColor={options.iconColor}
-            size={25}
           />
         </S.ButtonRight>
       )}

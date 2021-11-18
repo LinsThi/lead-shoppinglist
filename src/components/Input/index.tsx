@@ -20,20 +20,13 @@ const Input: React.FC<TextInputProps & InputProps> = ({
   return (
     <S.InputWrapper>
       <S.ContainerInputIcon>
-        {iconLeft && (
-          <S.IconInput
-            iconType={iconType}
-            name={iconLeft}
-            iconColor="#a5a5a5"
-            size={25}
-          />
-        )}
+        {iconLeft && <S.IconInput iconType={iconType} name={iconLeft} />}
         <S.Container>
           <S.ContainerInput>
             <S.InputLogin {...rest} iconRight={iconRight} />
             {iconRight && (
               <S.Touchable onPress={() => actionIcon && actionIcon()}>
-                <S.IconInput name={iconRight} size={25} iconColor="#a5a5a5" />
+                <S.IconInput name={iconRight} />
               </S.Touchable>
             )}
           </S.ContainerInput>

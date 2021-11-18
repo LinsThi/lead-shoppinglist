@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Checkbox } from 'react-native-paper';
 
+import Theme from '~/themes';
+
 export function CheckBox() {
   const [checked, setChecked] = useState(false);
 
@@ -10,7 +12,7 @@ export function CheckBox() {
       onPress={() => {
         setChecked(!checked);
       }}
-      color="#4299E1"
+      color={Theme.light.Colors.BLUE}
     />
   );
 }

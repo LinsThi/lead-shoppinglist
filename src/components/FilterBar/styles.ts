@@ -14,7 +14,7 @@ export const ContainerIcon = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: ${({ theme }) => theme.Colors.WHITE};
   border-radius: 7px;
   padding-left: 10px;
 `;
@@ -22,7 +22,7 @@ export const ContainerIcon = styled.View`
 export const Container = styled.View`
   width: 330px;
   height: 50px;
-  background: #fff;
+  background: ${({ theme }) => theme.Colors.WHITE};
   border-radius: 7px;
   justify-content: center;
 `;
@@ -36,9 +36,10 @@ export const InputFilter = styled.TextInput`
 `;
 
 export const IconInput = styled(Icon).attrs<IconInputProps>(
-  ({ name, iconType, iconColor }) => ({
+  ({ name, iconType, iconColor, theme }) => ({
     name,
-    color: iconColor,
+    size: theme.Sizes.ICON_SIZE_FILTER_BAR,
+    color: iconColor || theme.Colors.LIGHT_GRAY,
     type: iconType,
   }),
 )<IconInputProps>``;
