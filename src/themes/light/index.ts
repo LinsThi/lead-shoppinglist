@@ -5,6 +5,7 @@ export default {
     LIGHT_GRAY: '#A5A5A5',
     SILVER: '#A0AEC0',
     GRAY: '#8492A6',
+    CELLO: '#47525E',
   },
 
   Sizes: {

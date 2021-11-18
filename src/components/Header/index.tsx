@@ -29,8 +29,10 @@ export function Header({
           />
         </S.ButtonLeft>
       )}
-      <S.ContainerTitle>
-        <S.Title>{title || options.title}</S.Title>
+      <S.ContainerTitle enableNavigation={enableNavigation}>
+        <S.Title enableNavigation={enableNavigation}>
+          {title || options.title}
+        </S.Title>
       </S.ContainerTitle>
       {options.iconRightName && (
         <S.ButtonRight>

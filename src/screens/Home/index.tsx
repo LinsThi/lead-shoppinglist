@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import { FAB } from 'react-native-paper';
 
 import { BaseBoard } from '~/components/BaseBoard';
 import { CheckBox } from '~/components/CheckBox';
 import FilterBar from '~/components/FilterBar';
+
+import { ITEM_SCREEN } from '~/constants/routes';
+import Theme from '~/themes';
 
 import { listCategory } from './mock';
 
@@ -76,6 +80,19 @@ export function Home({ navigation }: any) {
           extraData={listCategory}
           keyExtractor={(item, index) => String(index)}
           renderItem={renderCategory}
+        />
+
+        <FAB
+          style={{
+            backgroundColor: Theme.light.Colors.BLUE,
+            position: 'absolute',
+            margin: 10,
+            right: 0,
+            bottom: 80,
+          }}
+          icon="plus"
+          color={Theme.light.Colors.WHITE}
+          onPress={() => navigation.navigate(ITEM_SCREEN)}
         />
 
         <S.ContainerBase>

@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 import Icon from '~/components/Icon';
 
@@ -13,13 +13,14 @@ interface IconProps {
   iconColor?: string;
 }
 
-export const Container = styled.View`
+export const Container = styled.View<Props>`
   height: 50px;
   width: 100%;
   background: ${({ theme }) => theme.Colors.BLUE};
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
 `;
 
 export const StatusBar = styled.StatusBar``;
@@ -27,16 +28,29 @@ export const StatusBar = styled.StatusBar``;
 export const ContainerTitle = styled.View<Props>`
   flex: ${({ enableNavigation, iconRight }) =>
     enableNavigation || iconRight ? 0.8 : 1};
+  ${props =>
+    props.enableNavigation &&
+    css`
+      align-items: center;
+      justify-content: center;
+    `}
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<Props>`
   color: ${({ theme }) => theme.Colors.WHITE};
-  margin-left: 18px;
   font-size: ${({ theme }) => theme.Sizes.FONTSIZE_TEXT}px;
+  margin-left: 15px;
+
+  ${props =>
+    props.enableNavigation &&
+    css`
+      margin: 0;
+    `}
 `;
 
 export const ButtonLeft = styled.TouchableOpacity`
-  flex: 0.2;
+  flex: 0.1;
+  align-items: center;
   margin-left: -10px;
 `;
 

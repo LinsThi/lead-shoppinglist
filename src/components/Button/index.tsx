@@ -5,7 +5,13 @@ import { HOME_SCREEN } from '~/constants/routes';
 
 import { Container, ButtonLogin, Name } from './styles';
 
-export function Button() {
+interface ButtonProps {
+  title: string;
+  color?: string;
+  fontColor?: string;
+}
+
+export function Button({ color, fontColor, title }: ButtonProps) {
   const navigation = useNavigation();
 
   function handleLogin() {
@@ -14,8 +20,8 @@ export function Button() {
 
   return (
     <Container>
-      <ButtonLogin onPress={() => handleLogin()}>
-        <Name>Entrar</Name>
+      <ButtonLogin onPress={() => handleLogin()} color={color}>
+        <Name fontColor={fontColor}>{title}</Name>
       </ButtonLogin>
     </Container>
   );
