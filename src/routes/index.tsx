@@ -6,8 +6,14 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { Header } from '~/components/Header';
 
-import { HOME_SCREEN, ITEM_SCREEN, LOGIN_SCREEN } from '~/constants/routes';
+import {
+  CATEGORY_SCREEN,
+  HOME_SCREEN,
+  ITEM_SCREEN,
+  LOGIN_SCREEN,
+} from '~/constants/routes';
 import { AddItem } from '~/screens/AddItem';
+import { Category } from '~/screens/Category';
 import { Home } from '~/screens/Home';
 import { Login } from '~/screens/Login';
 import Theme from '~/themes';
@@ -35,6 +41,14 @@ export function RootStack() {
             <Stack.Screen
               name={ITEM_SCREEN}
               component={AddItem}
+              options={{
+                header: props => <Header {...props} enableNavigation />,
+              }}
+            />
+
+            <Stack.Screen
+              name={CATEGORY_SCREEN}
+              component={Category}
               options={{
                 header: props => <Header {...props} enableNavigation />,
               }}
