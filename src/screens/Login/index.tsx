@@ -45,7 +45,7 @@ export function Login() {
         </S.ContainerInputs>
 
         <S.ContainerButton>
-          <Button />
+          <Button title="Entrar" />
         </S.ContainerButton>
       </S.Container>
     </KeyboardAvoidingView>

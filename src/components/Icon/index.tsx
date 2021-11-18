@@ -6,6 +6,7 @@ import {
   Foundation,
   Fontisto,
   MaterialIcons,
+  AntDesign,
 } from '@expo/vector-icons';
 import React from 'react';
 
@@ -36,6 +37,7 @@ const Icon: React.FC<IconProps> = ({
     material: <MaterialIcons {...iconProps} />,
     fontisto: <Fontisto {...iconProps} />,
     materialCommunityIcons: <MaterialCommunityIcons {...iconProps} />,
+    antDesign: <AntDesign {...iconProps} />,
   };
 
   return icons[type];
