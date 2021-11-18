@@ -34,7 +34,7 @@ export const ContainerBase = styled.View`
 export const ListCategory = styled.FlatList`
   flex: 1;
   padding: 10px;
-  background: #ffffff;
+  background: ${({ theme }) => theme.Colors.WHITE};
 `;
 
 export const ListProduct = styled.FlatList`
@@ -42,9 +42,9 @@ export const ListProduct = styled.FlatList`
 `;
 
 export const CategoryText = styled.Text`
-  font-size: 22px;
   margin-bottom: 10px;
-  color: #a0aec0;
+  font-size: ${({ theme }) => theme.Sizes.FONTSIZE_TEXT}px;
+  color: ${({ theme }) => theme.Colors.SILVER};
 `;
 
 export const ProductImg = styled.Image`
@@ -53,11 +53,11 @@ export const ProductImg = styled.Image`
 `;
 
 export const ProductText = styled.Text`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.Sizes.FONTSIZE_LIST_PRODUCT}px;
 `;
 
 export const ProductUnity = styled.Text`
   font-size: 15px;
   margin-bottom: 10px;
-  color: #8492a6;
+  color: ${({ theme }) => theme.Colors.GRAY};
 `;

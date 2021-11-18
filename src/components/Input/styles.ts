@@ -54,9 +54,10 @@ export const InputLogin = styled.TextInput<TextInputProps>`
 export const Touchable = styled.TouchableOpacity``;
 
 export const IconInput = styled(Icon).attrs<IconInputProps>(
-  ({ name, iconType, iconColor }) => ({
+  ({ name, iconType, iconColor, theme }) => ({
     name,
-    color: iconColor,
+    size: theme.Sizes.ICON_SIZE,
+    color: iconColor || theme.Colors.LIGHT_GRAY,
     type: iconType,
   }),
 )<IconInputProps>``;

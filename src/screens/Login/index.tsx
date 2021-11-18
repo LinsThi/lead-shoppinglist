@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Button } from '~/components/Button';
-import Icon from '~/components/Icon';
 import Input from '~/components/Input';
 
 import logoIMG from '../../assets/groceries.png';

@@ -16,12 +16,7 @@ const FilterBar: React.FC<TextInputProps & InputProps> = ({
   return (
     <S.InputWrapper>
       <S.ContainerIcon>
-        <S.IconInput
-          iconType={iconType}
-          name={iconLeft}
-          iconColor="#a5a5a5"
-          size={20}
-        />
+        <S.IconInput iconType={iconType} name={iconLeft} />
         <S.Container>
           <S.ContainerInput>
             <S.InputFilter {...rest} />

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image } from 'react-native';
 
 import symbolImg from '~/assets/raster.png';
 

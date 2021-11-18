@@ -16,7 +16,7 @@ interface IconProps {
 export const Container = styled.View`
   height: 50px;
   width: 100%;
-  background: #4299e1;
+  background: ${({ theme }) => theme.Colors.BLUE};
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -30,9 +30,9 @@ export const ContainerTitle = styled.View<Props>`
 `;
 
 export const Title = styled.Text`
-  color: #fff;
+  color: ${({ theme }) => theme.Colors.WHITE};
   margin-left: 18px;
-  font-size: 22px;
+  font-size: ${({ theme }) => theme.Sizes.FONTSIZE_TEXT}px;
 `;
 
 export const ButtonLeft = styled.TouchableOpacity`
@@ -41,9 +41,10 @@ export const ButtonLeft = styled.TouchableOpacity`
 `;
 
 export const IconLeft = styled(Icon).attrs<IconProps>(
-  ({ name, iconType, iconColor }) => ({
+  ({ name, iconType, iconColor, theme }) => ({
     name,
-    color: iconColor,
+    size: theme.Sizes.ICON_SIZE_HEADER,
+    color: iconColor || theme.Colors.LIGHT_GRAY,
     type: iconType,
   }),
 )<IconProps>``;
@@ -54,9 +55,10 @@ export const ButtonRight = styled.TouchableOpacity`
 `;
 
 export const IconRight = styled(Icon).attrs<IconProps>(
-  ({ name, iconType, iconColor }) => ({
+  ({ name, iconType, iconColor, theme }) => ({
     name,
-    color: iconColor,
+    size: theme.Sizes.ICON_SIZE_HEADER,
+    color: iconColor || theme.Colors.LIGHT_GRAY,
     type: iconType,
   }),
 )<IconProps>``;

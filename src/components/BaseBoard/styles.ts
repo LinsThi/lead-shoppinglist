@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const BaseBoardWrapper = styled.View`
-  background: #4299e1;
+  background: ${({ theme }) => theme.Colors.BLUE};
   flex: 1;
 `;
 
@@ -33,6 +33,6 @@ export const SymbolImg = styled.Image`
 `;
 
 export const TextInfo = styled.Text`
-  color: #fff;
-  font-size: 20px;
+  color: ${({ theme }) => theme.Colors.WHITE};
+  font-size: ${({ theme }) => theme.Sizes.FONTSIZE_BUTTON}px;
 `;
