@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FAB } from 'react-native-paper';
+import { ThemeContext } from 'styled-components';
 
 import { Button } from '~/components/Button';
 import InputItem from '~/components/InputItem';
 
 import logoIMG from '~/assets/groceries.png';
-import { CATEGORY_SCREEN, ITEM_SCREEN } from '~/constants/routes';
-import Theme from '~/themes';
+import { CATEGORY_SCREEN } from '~/constants/routes';
 
 import * as S from './styles';
 
 export function AddItem({ navigation }: any) {
+  const { Colors } = useContext(ThemeContext);
+
   useEffect(() => {
     navigation.setOptions({
       iconLeftName: 'arrowleft',
       iconLeftType: 'antDesign',
-      iconColor: '#fff',
+      iconColor: Colors.WHITE,
       title: 'Cadastrar Produto',
     });
-  }, [navigation]);
+  }, [navigation, Colors]);
 
   return (
     <KeyboardAvoidingView
@@ -59,25 +61,21 @@ export function AddItem({ navigation }: any) {
 
             <FAB
               style={{
-                backgroundColor: Theme.light.Colors.BLUE,
+                backgroundColor: Colors.BLUE,
                 position: 'absolute',
                 marginRight: -30,
                 right: 0,
                 top: 10,
               }}
               icon="pencil"
-              color={Theme.light.Colors.WHITE}
+              color={Colors.WHITE}
               onPress={() => navigation.navigate(CATEGORY_SCREEN)}
             />
           </S.ContainerCategory>
         </S.ContainerInputs>
 
         <S.ContainerButton>
-          <Button
-            title="Salvar"
-            color={Theme.light.Colors.BLUE}
-            fontColor={Theme.light.Colors.WHITE}
-          />
+          <Button title="Salvar" color={Colors.BLUE} fontColor={Colors.WHITE} />
         </S.ContainerButton>
       </S.Container>
     </KeyboardAvoidingView>

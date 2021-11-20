@@ -7,6 +7,7 @@ type ColorProps = {
   SILVER: string;
   GRAY: string;
   CELLO: string;
+  RED: string;
 };
 
 type SizeProps = {

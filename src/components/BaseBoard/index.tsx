@@ -1,14 +1,17 @@
 import React from 'react';
 
-import symbolImg from '~/assets/raster.png';
-
 import * as S from './styles';
 
-export function BaseBoard() {
+interface BaseBoardProps {
+  name: string;
+  type: string;
+}
+
+export function BaseBoard({ name, type }: BaseBoardProps) {
   return (
     <S.BaseBoardWrapper>
       <S.ContainerImage>
-        <S.SymbolImg source={symbolImg} />
+        <S.SymbolImg name={name} type={type} />
         <S.Container>
           <S.ContainerInfo>
             <S.TextInfo>Total de itens</S.TextInfo>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Checkbox } from 'react-native-paper';
-
-import Theme from '~/themes';
+import { ThemeContext } from 'styled-components/native';
 
 export function CheckBox() {
+  const { Colors } = useContext(ThemeContext);
+
   const [checked, setChecked] = useState(false);
 
   return (
@@ -12,7 +13,7 @@ export function CheckBox() {
       onPress={() => {
         setChecked(!checked);
       }}
-      color={Theme.light.Colors.BLUE}
+      color={Colors.BLUE}
     />
   );
 }
