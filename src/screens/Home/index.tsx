@@ -1,47 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FAB } from 'react-native-paper';
+import { ThemeContext } from 'styled-components/native';
 
 import { BaseBoard } from '~/components/BaseBoard';
 import { CheckBox } from '~/components/CheckBox';
 import FilterBar from '~/components/FilterBar';
 
-import { ITEM_SCREEN } from '~/constants/routes';
-import Theme from '~/themes';
+import { CART_SCREEN, ITEM_SCREEN } from '~/constants/routes';
 
 import { listCategory } from './mock';
 
 import * as S from './styles';
 
 export function Home({ navigation }: any) {
+  const { Colors } = useContext(ThemeContext);
+
   const [filter, setFilter] = useState('');
 
-  const goToCart = () => {
-    // navigation.navigate();
-  };
+  const goToCart = useCallback(() => {
+    navigation.navigate(CART_SCREEN);
+  }, [navigation]);
 
   useEffect(() => {
     navigation.setOptions({
       iconRightName: 'md-cart',
       iconRightType: 'ionicons',
       actionButtonRight: goToCart,
-      iconColor: '#fff',
+      iconColor: Colors.WHITE,
       title: 'Bem vindo Mayh',
     });
-  }, []);
+  }, [navigation, goToCart, Colors]);
 
   function renderProduct({ item }: any) {
-    return (
-      <S.ContainerProduct>
-        <S.ProductImg source={{ uri: item.product_url }} />
-        <S.ContainerProductInfo>
-          <S.ProductText>{item.name}</S.ProductText>
-          <S.ProductUnity>{item.unity} un</S.ProductUnity>
-        </S.ContainerProductInfo>
+    if (item.name.includes(filter)) {
+      return (
+        <S.ContainerProduct>
+          <S.ProductImg source={{ uri: item.product_url }} />
+          <S.ContainerProductInfo>
+            <S.ProductText>{item.name}</S.ProductText>
+            <S.ProductUnity>{item.unity} un</S.ProductUnity>
+          </S.ContainerProductInfo>
 
-        <CheckBox />
-      </S.ContainerProduct>
-    );
+          <CheckBox />
+        </S.ContainerProduct>
+      );
+    }
   }
 
   function renderCategory({ item }: any) {
@@ -52,7 +56,7 @@ export function Home({ navigation }: any) {
         <S.ListProduct
           data={item.listItens}
           extraData={item.listItens}
-          keyExtractor={(itemCurrent, index) => String(index)}
+          keyExtractor={(_, index) => String(index)}
           renderItem={renderProduct}
         />
       </S.ContainerCategory>
@@ -78,25 +82,25 @@ export function Home({ navigation }: any) {
         <S.ListCategory
           data={listCategory}
           extraData={listCategory}
-          keyExtractor={(item, index) => String(index)}
+          keyExtractor={(_, index) => String(index)}
           renderItem={renderCategory}
         />
 
         <FAB
           style={{
-            backgroundColor: Theme.light.Colors.BLUE,
+            backgroundColor: Colors.BLUE,
             position: 'absolute',
             margin: 10,
             right: 0,
             bottom: 80,
           }}
           icon="plus"
-          color={Theme.light.Colors.WHITE}
+          color={Colors.WHITE}
           onPress={() => navigation.navigate(ITEM_SCREEN)}
         />
 
         <S.ContainerBase>
-          <BaseBoard />
+          <BaseBoard name="clipboard-list" type="font-5" />
         </S.ContainerBase>
       </S.Container>
     </KeyboardAvoidingView>

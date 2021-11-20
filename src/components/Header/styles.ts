@@ -19,7 +19,6 @@ export const Container = styled.View<Props>`
   background: ${({ theme }) => theme.Colors.BLUE};
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   padding-bottom: 20px;
 `;
 

@@ -6,6 +6,7 @@ export default {
     SILVER: '#A0AEC0',
     GRAY: '#8492A6',
     CELLO: '#47525E',
+    RED: '#FF0000',
   },
 
   Sizes: {

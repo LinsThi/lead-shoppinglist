@@ -1,6 +1,5 @@
-import React from 'react';
-
-import Theme from '~/themes';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'styled-components/native';
 
 import * as S from './styles';
 
@@ -17,9 +16,11 @@ export function Header({
   navigation,
   options,
 }: HeaderProps) {
+  const { Colors } = useContext(ThemeContext);
+
   return (
     <S.Container>
-      <S.StatusBar backgroundColor={Theme.light.Colors.BLUE} />
+      <S.StatusBar backgroundColor={Colors.BLUE} />
       {enableNavigation && (
         <S.ButtonLeft onPress={() => navigation.goBack()}>
           <S.IconLeft
@@ -35,7 +36,7 @@ export function Header({
         </S.Title>
       </S.ContainerTitle>
       {options.iconRightName && (
-        <S.ButtonRight>
+        <S.ButtonRight onPress={() => options.actionButtonRight()}>
           <S.IconRight
             iconType={options.iconRightType}
             name={options.iconRightName}

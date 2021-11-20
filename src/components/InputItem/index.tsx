@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import type { TextInputProps } from 'react-native';
-
-import Theme from '~/themes';
+import { ThemeContext } from 'styled-components/native';
 
 import * as S from './styles';
 
@@ -17,6 +16,8 @@ const InputItem: React.FC<TextInputProps & InputProps> = ({
   categoryInput,
   ...rest
 }: InputProps) => {
+  const { Colors } = useContext(ThemeContext);
+
   return (
     <S.InputWrapper doubleInput={doubleInput}>
       <S.LabelInput>{label}</S.LabelInput>
@@ -26,7 +27,7 @@ const InputItem: React.FC<TextInputProps & InputProps> = ({
             categoryInput={categoryInput}
             {...rest}
             style={{
-              borderBottomColor: Theme.light.Colors.BLUE,
+              borderBottomColor: Colors.BLUE,
               borderBottomWidth: 2,
             }}
           />

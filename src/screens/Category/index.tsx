@@ -1,21 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { ThemeContext } from 'styled-components/native';
 
 import { Button } from '~/components/Button';
 import InputItem from '~/components/InputItem';
 
-import Theme from '~/themes';
-
 import * as S from './styles';
 
 export function Category({ navigation }: any) {
+  const { Colors } = useContext(ThemeContext);
+
   useEffect(() => {
     navigation.setOptions({
       iconLeftName: 'arrowleft',
       iconLeftType: 'antDesign',
-      iconColor: '#fff',
+      iconColor: Colors.WHITE,
       title: 'Cadastrar Categoria',
     });
-  }, [navigation]);
+  }, [navigation, Colors]);
 
   return (
     <S.Container>
@@ -27,11 +28,7 @@ export function Category({ navigation }: any) {
       </S.ContainerInput>
 
       <S.ContainerButton>
-        <Button
-          title="Salvar"
-          color={Theme.light.Colors.BLUE}
-          fontColor={Theme.light.Colors.WHITE}
-        />
+        <Button title="Salvar" color={Colors.BLUE} fontColor={Colors.WHITE} />
       </S.ContainerButton>
     </S.Container>
   );
