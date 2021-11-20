@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useContext } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemeContext, ThemeProvider } from 'styled-components/native';
+import { ThemeProvider } from 'styled-components/native';
 
 import { Header } from '~/components/Header';
 
@@ -23,10 +23,8 @@ import Theme from '~/themes';
 const Stack = createStackNavigator();
 
 export function RootStack() {
-  const { Colors } = useContext(ThemeContext);
-
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.BLUE }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#0076ce' }}>
       <ThemeProvider theme={Theme.light}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName={LOGIN_SCREEN}>
