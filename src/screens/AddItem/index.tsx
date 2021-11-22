@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FAB } from 'react-native-paper';
 import { ThemeContext } from 'styled-components';
 
 import { Button } from '~/components/Button';
 import InputItem from '~/components/InputItem';
+import Select from '~/components/Select';
 
 import logoIMG from '~/assets/groceries.png';
 import { CATEGORY_SCREEN } from '~/constants/routes';
@@ -13,6 +14,9 @@ import * as S from './styles';
 
 export function AddItem({ navigation }: any) {
   const { Colors } = useContext(ThemeContext);
+
+  const [category, setCategory] = useState('');
+  const [unity, setUnity] = useState(0);
 
   useEffect(() => {
     navigation.setOptions({
@@ -43,20 +47,22 @@ export function AddItem({ navigation }: any) {
               label="Quantidade"
               doubleInput
             />
-            <InputItem
-              placeholder="Selecione a unidade"
+
+            <Select
               label="Unidade"
-              doubleInput
+              selectedValue={unity}
+              onValueChange={itemUnity => setUnity(itemUnity)}
             />
           </S.DoubleInput>
 
           <InputItem placeholder="Digite o preço do produto" label="Preço" />
 
           <S.ContainerCategory>
-            <InputItem
-              placeholder="Selecione a categoria"
-              categoryInput
+            <Select
               label="Categoria"
+              categorySelected
+              selectedValue={category}
+              onValueChange={itemCategory => setCategory(itemCategory)}
             />
 
             <FAB
