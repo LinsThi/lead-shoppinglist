@@ -4,10 +4,6 @@ interface InputProps {
   doubleInput?: boolean;
 }
 
-interface InputCategory {
-  categoryInput?: boolean;
-}
-
 export const InputWrapper = styled.View<InputProps>`
   margin-left: 20px;
   margin-bottom: 20px;
@@ -28,7 +24,7 @@ export const LabelInput = styled.Text`
   color: ${({ theme }) => theme.Colors.CELLO};
 `;
 
-export const InputLogin = styled.TextInput<InputCategory>`
-  width: ${({ categoryInput }) => (categoryInput ? 80 : 100)}%;
+export const InputLogin = styled.TextInput`
+  width: 100%;
   height: 40px;
 `;
