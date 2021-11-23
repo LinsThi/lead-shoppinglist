@@ -1,12 +1,14 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FAB } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 import { ThemeContext } from 'styled-components/native';
 
 import { BaseBoard } from '~/components/BaseBoard';
 import { CheckBox } from '~/components/CheckBox';
 import FilterBar from '~/components/FilterBar';
 
+import type { AplicationState } from '~/@types/Entity/AplicationState';
 import { CART_SCREEN, ITEM_SCREEN } from '~/constants/routes';
 
 import { listCategory } from './mock';
@@ -18,6 +20,8 @@ export function Home({ navigation }: any) {
 
   const [filter, setFilter] = useState('');
 
+  const { username } = useSelector((state: AplicationState) => state.user);
+
   const goToCart = useCallback(() => {
     navigation.navigate(CART_SCREEN);
   }, [navigation]);
@@ -28,9 +32,9 @@ export function Home({ navigation }: any) {
       iconRightType: 'ionicons',
       actionButtonRight: goToCart,
       iconColor: Colors.WHITE,
-      title: 'Bem vindo Mayh',
+      title: `Bem vindo(a) ${username}`,
     });
-  }, [navigation, goToCart, Colors]);
+  }, [navigation, goToCart, Colors, username]);
 
   function renderProduct({ item }: any) {
     if (item.name.includes(filter)) {

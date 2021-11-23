@@ -1,26 +1,18 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-
-import { HOME_SCREEN } from '~/constants/routes';
+import type { TouchableOpacityProps } from 'react-native';
 
 import { Container, ButtonLogin, Name } from './styles';
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   title: string;
   color?: string;
   fontColor?: string;
 }
 
-export function Button({ color, fontColor, title }: ButtonProps) {
-  const navigation = useNavigation();
-
-  function handleLogin() {
-    navigation.navigate(HOME_SCREEN);
-  }
-
+export function Button({ color, fontColor, title, ...rest }: ButtonProps) {
   return (
     <Container>
-      <ButtonLogin onPress={() => handleLogin()} color={color}>
+      <ButtonLogin {...rest} color={color}>
         <Name fontColor={fontColor}>{title}</Name>
       </ButtonLogin>
     </Container>
