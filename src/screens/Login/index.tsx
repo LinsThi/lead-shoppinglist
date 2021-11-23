@@ -1,17 +1,30 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { Button } from '~/components/Button';
 import Input from '~/components/Input';
+
+import { HOME_SCREEN } from '~/constants/routes';
+import { loginAction } from '~/store/ducks/user/actions';
 
 import logoIMG from '../../assets/groceries.png';
 
 import * as S from './styles';
 
 export function Login() {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigation = useNavigation();
+
+  function handleLogin() {
+    dispatch(loginAction(username, password));
+    navigation.navigate(HOME_SCREEN);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -45,7 +58,7 @@ export function Login() {
         </S.ContainerInputs>
 
         <S.ContainerButton>
-          <Button title="Entrar" />
+          <Button title="Entrar" onPress={() => handleLogin()} />
         </S.ContainerButton>
       </S.Container>
     </KeyboardAvoidingView>
