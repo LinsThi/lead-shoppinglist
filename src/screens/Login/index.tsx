@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -6,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { Button } from '~/components/Button';
 import Input from '~/components/Input';
 
-import { HOME_SCREEN } from '~/constants/routes';
 import { loginAction } from '~/store/ducks/user/actions';
 
 import logoIMG from '../../assets/groceries.png';
@@ -19,11 +17,8 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigation = useNavigation();
-
   function handleLogin() {
     dispatch(loginAction(username, password));
-    navigation.navigate(HOME_SCREEN);
   }
 
   return (

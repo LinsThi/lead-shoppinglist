@@ -7,6 +7,7 @@ export enum UserTypes {
 export interface UserState {
   username: string;
   password: string;
+  isLogged: boolean;
 }
 
 export interface LoginActionProps extends Action {

@@ -6,6 +6,7 @@ import { UserTypes } from './types';
 const INITIAL_STATE: UserState = {
   username: '',
   password: '',
+  isLogged: false,
 };
 
 const reducer: Reducer<UserState> = (
@@ -18,6 +19,7 @@ const reducer: Reducer<UserState> = (
         ...state,
         username: payload.username,
         password: payload.password,
+        isLogged: true,
       };
     default:
       return state;
