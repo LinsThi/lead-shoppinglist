@@ -11,8 +11,6 @@ import FilterBar from '~/components/FilterBar';
 import type { AplicationState } from '~/@types/Entity/AplicationState';
 import { CART_SCREEN, ITEM_SCREEN } from '~/constants/routes';
 
-import { listCategory } from './mock';
-
 import * as S from './styles';
 
 export function Home({ navigation }: any) {
@@ -21,6 +19,9 @@ export function Home({ navigation }: any) {
   const [filter, setFilter] = useState('');
 
   const { username } = useSelector((state: AplicationState) => state.user);
+  const { groceryList } = useSelector(
+    (state: AplicationState) => state.grocery,
+  );
 
   const goToCart = useCallback(() => {
     navigation.navigate(CART_SCREEN);
@@ -37,19 +38,17 @@ export function Home({ navigation }: any) {
   }, [navigation, goToCart, Colors, username]);
 
   function renderProduct({ item }: any) {
-    if (item.name.includes(filter)) {
-      return (
-        <S.ContainerProduct>
-          <S.ProductImg source={{ uri: item.product_url }} />
-          <S.ContainerProductInfo>
-            <S.ProductText>{item.name}</S.ProductText>
-            <S.ProductUnity>{item.unity} un</S.ProductUnity>
-          </S.ContainerProductInfo>
+    return (
+      <S.ContainerProduct>
+        <S.ProductImg source={{ uri: item.image }} />
+        <S.ContainerProductInfo>
+          <S.ProductText>{item.name}</S.ProductText>
+          <S.ProductUnity>{item.quantity} un</S.ProductUnity>
+        </S.ContainerProductInfo>
 
-          <CheckBox />
-        </S.ContainerProduct>
-      );
-    }
+        <CheckBox />
+      </S.ContainerProduct>
+    );
   }
 
   function renderCategory({ item }: any) {
@@ -57,12 +56,14 @@ export function Home({ navigation }: any) {
       <S.ContainerCategory>
         <S.CategoryText>{item.name}</S.CategoryText>
 
-        <S.ListProduct
-          data={item.listItens}
-          extraData={item.listItens}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={renderProduct}
-        />
+        {item.listItems && (
+          <S.ListProduct
+            data={item.listItems}
+            extraData={item.listItems}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={renderProduct}
+          />
+        )}
       </S.ContainerCategory>
     );
   }
@@ -84,8 +85,8 @@ export function Home({ navigation }: any) {
           />
         </S.ContainerFilter>
         <S.ListCategory
-          data={listCategory}
-          extraData={listCategory}
+          data={groceryList}
+          extraData={groceryList}
           keyExtractor={(_, index) => String(index)}
           renderItem={renderCategory}
         />

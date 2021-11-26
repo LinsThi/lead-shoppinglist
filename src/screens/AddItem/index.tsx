@@ -1,22 +1,40 @@
-import React, { useContext, useEffect, useState } from 'react';
+import cloneDeep from 'lodash/cloneDeep';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FAB } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThemeContext } from 'styled-components';
 
 import { Button } from '~/components/Button';
 import InputItem from '~/components/InputItem';
 import Select from '~/components/Select';
 
+import type { AplicationState } from '~/@types/Entity/AplicationState';
+import type { CategoryProps } from '~/@types/Entity/Category';
 import logoIMG from '~/assets/groceries.png';
 import { CATEGORY_SCREEN } from '~/constants/routes';
+import { insertItemAction } from '~/store/ducks/grocery/actions';
+
+import { insertItem } from './utils';
 
 import * as S from './styles';
 
 export function AddItem({ navigation }: any) {
   const { Colors } = useContext(ThemeContext);
 
-  const [category, setCategory] = useState('');
-  const [unity, setUnity] = useState(0);
+  const dispatch = useDispatch();
+  const { groceryList } = useSelector(
+    (state: AplicationState) => state.grocery,
+  );
+
+  const [image, setImage] = useState(
+    'https://a-static.mlcdn.com.br/618x463/detergente-liquido-ype-neutro-500ml/costaatacado/90146/bc45e8e91700e557fe42944c14353cac.jpg',
+  );
+  const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [unity, setUnity] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState<CategoryProps>({} as CategoryProps);
 
   useEffect(() => {
     navigation.setOptions({
@@ -26,6 +44,32 @@ export function AddItem({ navigation }: any) {
       title: 'Cadastrar Produto',
     });
   }, [navigation, Colors]);
+
+  const newItem = useCallback(() => {
+    const list = cloneDeep(groceryList);
+    const newList = insertItem(
+      list,
+      image,
+      name,
+      quantity,
+      unity,
+      price,
+      category,
+    );
+
+    dispatch(insertItemAction(newList));
+    navigation.goBack();
+  }, [
+    category,
+    groceryList,
+    image,
+    name,
+    quantity,
+    unity,
+    price,
+    dispatch,
+    navigation,
+  ]);
 
   return (
     <KeyboardAvoidingView
@@ -39,13 +83,20 @@ export function AddItem({ navigation }: any) {
         </S.ContainerSendInput>
 
         <S.ContainerInputs>
-          <InputItem placeholder="Digite o nome do produto" label="Nome" />
+          <InputItem
+            placeholder="Digite o nome do produto"
+            label="Nome"
+            value={name}
+            onChangeText={setName}
+          />
 
           <S.DoubleInput>
             <InputItem
               placeholder="Digite a quantidade"
               label="Quantidade"
               doubleInput
+              value={quantity}
+              onChangeText={setQuantity}
             />
 
             <Select
@@ -55,7 +106,12 @@ export function AddItem({ navigation }: any) {
             />
           </S.DoubleInput>
 
-          <InputItem placeholder="Digite o preço do produto" label="Preço" />
+          <InputItem
+            placeholder="Digite o preço do produto"
+            label="Preço"
+            value={price}
+            onChangeText={setPrice}
+          />
 
           <S.ContainerCategory>
             <Select
@@ -81,7 +137,12 @@ export function AddItem({ navigation }: any) {
         </S.ContainerInputs>
 
         <S.ContainerButton>
-          <Button title="Salvar" color={Colors.BLUE} fontColor={Colors.WHITE} />
+          <Button
+            title="Salvar"
+            color={Colors.BLUE}
+            fontColor={Colors.WHITE}
+            onPress={() => newItem()}
+          />
         </S.ContainerButton>
       </S.Container>
     </KeyboardAvoidingView>

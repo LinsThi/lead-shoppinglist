@@ -1,8 +1,9 @@
 import type { PickerProps } from '@react-native-picker/picker';
 import { Picker } from '@react-native-picker/picker';
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { listCategory } from '~/screens/Cart/mock';
+import type { AplicationState } from '~/@types/Entity/AplicationState';
 
 import * as S from './styles';
 
@@ -16,6 +17,9 @@ const Select: React.FC<PickerProps & SelectProps> = ({
   categorySelected = false,
   ...rest
 }: SelectProps) => {
+  const { groceryList } = useSelector(
+    (state: AplicationState) => state.grocery,
+  );
   return (
     <S.SelectWrapper>
       <S.LabelSelect>{label}</S.LabelSelect>
@@ -28,9 +32,9 @@ const Select: React.FC<PickerProps & SelectProps> = ({
                 value="a"
                 enabled={false}
               />
-              {listCategory.map(ctg => {
+              {groceryList.map(ctg => {
                 return (
-                  <Picker.Item label={ctg.name} value={ctg.name} key={ctg.id} />
+                  <Picker.Item label={ctg.name} value={ctg} key={ctg.id} />
                 );
               })}
             </S.SelectPicker>
@@ -43,9 +47,9 @@ const Select: React.FC<PickerProps & SelectProps> = ({
                 value="b"
                 enabled={false}
               />
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
+              <Picker.Item label="KG" value="KG" />
+              <Picker.Item label="L" value="L" />
+              <Picker.Item label="G" value="G" />
             </S.SelectPicker>
           )}
         </S.ContainerSelect>
