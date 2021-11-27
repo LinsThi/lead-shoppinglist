@@ -1,3 +1,5 @@
+import type { Action } from 'redux';
+
 import type { CategoryProps } from '~/@types/Entity/Category';
 
 export enum CategoryTypes {
@@ -5,5 +7,10 @@ export enum CategoryTypes {
 }
 
 export interface CategoryState {
-  groceryList: CategoryProps[];
+  groceryCategory: CategoryProps[];
+}
+
+export interface InsertCategoryAction extends Action {
+  type: CategoryTypes.INSERT_CATEGORY;
+  payload: { groceryCategory: CategoryProps[] };
 }
