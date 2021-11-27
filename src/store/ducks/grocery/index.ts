@@ -19,6 +19,11 @@ const reducer: Reducer<GroceryState> = (
         ...state,
         groceryList: payload.groceryList,
       };
+    case GroceryTypes.INSERT_CATEGORY_IN_LIST:
+      return {
+        ...state,
+        groceryList: payload.groceryList,
+      };
     default:
       return state;
   }

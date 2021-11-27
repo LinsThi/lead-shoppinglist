@@ -6,7 +6,7 @@ import type { CategoryState } from './types';
 import { CategoryTypes } from './types';
 
 const INITIAL_STATE: CategoryState = {
-  groceryList: CATEGORIES,
+  groceryCategory: CATEGORIES,
 };
 
 const reducer: Reducer<CategoryState> = (
@@ -17,7 +17,7 @@ const reducer: Reducer<CategoryState> = (
     case CategoryTypes.INSERT_CATEGORY:
       return {
         ...state,
-        groceryList: payload.groceryList,
+        groceryCategory: payload.groceryCategory,
       };
     default:
       return state;
