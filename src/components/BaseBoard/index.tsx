@@ -1,4 +1,10 @@
-import React from 'react';
+import { cloneDeep, cloneDeepWith } from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import type { AplicationState } from '~/@types/Entity/AplicationState';
+
+import { amountList, countAllItens } from './utils';
 
 import * as S from './styles';
 
@@ -8,6 +14,22 @@ interface BaseBoardProps {
 }
 
 export function BaseBoard({ name, type }: BaseBoardProps) {
+  const [allItems, setAllitems] = useState(0);
+  const [amountTotal, setAmountTotal] = useState(0);
+
+  const { groceryList } = useSelector(
+    (state: AplicationState) => state.grocery,
+  );
+
+  useEffect(() => {
+    const listCount = cloneDeepWith(groceryList);
+    const countAllItems = countAllItens(listCount);
+    setAllitems(countAllItems);
+
+    const amountTotalList = amountList(listCount);
+    setAmountTotal(amountTotalList);
+  }, [groceryList]);
+
   return (
     <S.BaseBoardWrapper>
       <S.ContainerImage>
@@ -18,8 +40,8 @@ export function BaseBoard({ name, type }: BaseBoardProps) {
             <S.TextInfo>Valor Total</S.TextInfo>
           </S.ContainerInfo>
           <S.ContainerQuantity>
-            <S.TextInfo>10</S.TextInfo>
-            <S.TextInfo>R$ 350,00</S.TextInfo>
+            <S.TextInfo>{allItems}</S.TextInfo>
+            <S.TextInfo>R$ {amountTotal}</S.TextInfo>
           </S.ContainerQuantity>
         </S.Container>
       </S.ContainerImage>
