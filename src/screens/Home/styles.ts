@@ -14,7 +14,7 @@ export const ContainerCategory = styled.View`
   flex: 1;
 `;
 
-export const ContainerProduct = styled.View`
+export const ContainerProduct = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   margin-bottom: 10px;

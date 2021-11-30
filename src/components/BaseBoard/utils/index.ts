@@ -19,7 +19,8 @@ export const amountList = (groceryList: GroceryProps[]) => {
   listCount.map(categoryCurrent => {
     categoryCurrent.listItems.map(itemsCurrent => {
       const value = itemsCurrent.price;
-      amount += parseInt(value, 10);
+      const qnt = itemsCurrent.quantity;
+      amount += parseInt(value, 10) * parseInt(qnt, 10);
       return null;
     });
 
