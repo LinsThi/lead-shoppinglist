@@ -93,11 +93,11 @@ export function Home({ navigation }: any) {
         <S.ContainerProductInfo>
           <S.ProductText>{item.name}</S.ProductText>
           <S.ProductUnity>
-            {item.quantity} un / {item.price} R$ cada
+            {item.quantity} un / R$ {item.price} cada
           </S.ProductUnity>
         </S.ContainerProductInfo>
 
-        <CheckBox />
+        <CheckBox isSelected={item.isSelected} product={item} />
       </S.ContainerProduct>
     );
   };
@@ -106,13 +106,15 @@ export function Home({ navigation }: any) {
     return (
       <S.ContainerCategory>
         <S.CategoryText>{item.name}</S.CategoryText>
-
-        <S.ListProduct
-          data={item.listItems}
-          extraData={item.listItems}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={renderProduct}
-        />
+        {item.listItems && (
+          <S.ListProduct
+            data={item.listItems}
+            extraData={item.listItems}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={renderProduct}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </S.ContainerCategory>
     );
   };

@@ -22,9 +22,10 @@ export const insertItem = (
         image,
         name,
         quantity,
-        price,
+        price: price || '0',
         unity,
         category,
+        isSelected: false,
       };
 
       return categoryCurrent.listItems.push(newItem);

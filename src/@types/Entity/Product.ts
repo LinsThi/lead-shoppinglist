@@ -8,4 +8,5 @@ export interface ProductProps {
   unity: string;
   price: string;
   category: CategoryProps;
+  isSelected: boolean;
 }
