@@ -3,6 +3,7 @@ import 'styled-components';
 type ColorProps = {
   BLUE: string;
   WHITE: string;
+  BLACK: string;
   LIGHT_GRAY: string;
   SILVER: string;
   GRAY: string;

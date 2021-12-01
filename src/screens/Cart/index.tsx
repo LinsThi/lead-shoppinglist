@@ -19,6 +19,9 @@ import * as S from './styles';
 export function Cart({ navigation }: any) {
   const { Colors } = useContext(ThemeContext);
 
+  const [productSelect, setProductSelect] = useState<ProductProps>(
+    {} as ProductProps,
+  );
   const [visible, setVisible] = useState(false);
   const [filterItems, setFilterItems] = useState('');
   const [listItems, setListItems] = useState<GroceryProps[] | []>([]);
@@ -26,6 +29,7 @@ export function Cart({ navigation }: any) {
   const [listItemsFilter, setListItemsFilter] = useState<ProductProps[] | []>(
     [],
   );
+  const [amountCart, setAmountCart] = useState(0);
 
   const { groceryList } = useSelector(
     (state: AplicationState) => state.grocery,
@@ -40,8 +44,9 @@ export function Cart({ navigation }: any) {
     setListItemsFilter(itemsFilter);
   }, [allListItems, filterItems]);
 
-  const showModal = useCallback(() => {
+  const showModal = useCallback((item: ProductProps) => {
     setVisible(true);
+    setProductSelect(item);
   }, []);
 
   useEffect(() => {
@@ -65,22 +70,6 @@ export function Cart({ navigation }: any) {
     setAllListItems(newList);
   }, [groceryList]);
 
-  // useEffect(() => {
-  //   const listWithAllProducts = groceryList.filter(
-  //     (currentItem: GroceryProps) => currentItem.listItems.length !== 0,
-  //   );
-
-  //   setListItems(listWithAllProducts);
-  // }, [groceryList]);
-
-  useEffect(() => {
-    if (filterItems) {
-      updateItemsFilter();
-    } else {
-      setListItemsFilter([]);
-    }
-  }, [filterItems, updateItemsFilter]);
-
   useEffect(() => {
     const listClone = cloneDeep(groceryList);
 
@@ -100,9 +89,35 @@ export function Cart({ navigation }: any) {
     setListItems(listWithAllProducts);
   }, [groceryList]);
 
+  useEffect(() => {
+    if (filterItems) {
+      updateItemsFilter();
+    } else {
+      setListItemsFilter([]);
+    }
+  }, [filterItems, updateItemsFilter]);
+
+  useEffect(() => {
+    let amount = 0;
+    const listCount = listItems;
+
+    listCount.map(categoryCurrent => {
+      categoryCurrent.listItems.map(itemsCurrent => {
+        const value = itemsCurrent.price;
+        const qnt = itemsCurrent.quantity;
+        amount += parseInt(value, 10) * parseInt(qnt, 10);
+        return null;
+      });
+
+      return null;
+    });
+
+    setAmountCart(amount);
+  }, [listItems]);
+
   const renderProduct: ListRenderItem<ProductProps> = ({ item }) => {
     return (
-      <S.ContainerProduct onPress={() => showModal()}>
+      <S.ContainerProduct onPress={() => showModal(item)}>
         <S.ProductImg source={{ uri: item.image }} />
         <S.ContainerProductInfo>
           <S.ProductText>{item.name}</S.ProductText>
@@ -111,7 +126,7 @@ export function Cart({ navigation }: any) {
           </S.ProductUnity>
         </S.ContainerProductInfo>
 
-        <CancelProduct />
+        <CancelProduct product={item} />
       </S.ContainerProduct>
     );
   };
@@ -148,18 +163,36 @@ export function Cart({ navigation }: any) {
           />
         </S.ContainerFilter>
 
-        <S.ListCategory
-          data={listItems}
-          extraData={listItems}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={renderCategory}
-        />
+        {listItemsFilter.length > 0 ? (
+          <S.ListCategory
+            data={listItemsFilter}
+            extraData={listItemsFilter}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={renderProduct}
+          />
+        ) : (
+          <S.ListCategory
+            data={listItems}
+            extraData={listItems}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={renderCategory}
+          />
+        )}
 
         <S.ContainerBase>
-          <BaseBoard name="md-cart" type="ionicons" />
+          <BaseBoard
+            name="md-cart"
+            type="ionicons"
+            itensTotalCart={listItems.length + 1}
+            amountTotalCart={amountCart}
+          />
         </S.ContainerBase>
 
-        <ModalProduct visible={visible} setVisible={setVisible} />
+        <ModalProduct
+          visible={visible}
+          setVisible={setVisible}
+          productSelect={productSelect}
+        />
       </S.Container>
     </KeyboardAvoidingView>
   );
