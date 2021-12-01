@@ -11,9 +11,16 @@ import * as S from './styles';
 interface BaseBoardProps {
   name: string;
   type: string;
+  itensTotalCart?: string;
+  amountTotalCart?: number;
 }
 
-export function BaseBoard({ name, type }: BaseBoardProps) {
+export function BaseBoard({
+  name,
+  type,
+  itensTotalCart,
+  amountTotalCart,
+}: BaseBoardProps) {
   const [allItems, setAllitems] = useState(0);
   const [amountTotal, setAmountTotal] = useState(0);
 
@@ -40,8 +47,8 @@ export function BaseBoard({ name, type }: BaseBoardProps) {
             <S.TextInfo>Valor Total</S.TextInfo>
           </S.ContainerInfo>
           <S.ContainerQuantity>
-            <S.TextInfo>{allItems}</S.TextInfo>
-            <S.TextInfo>R$ {amountTotal}</S.TextInfo>
+            <S.TextInfo>{itensTotalCart || allItems}</S.TextInfo>
+            <S.TextInfo>R$ {amountTotalCart || amountTotal}</S.TextInfo>
           </S.ContainerQuantity>
         </S.Container>
       </S.ContainerImage>

@@ -2,44 +2,46 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: white;
 `;
 
 export const ContainerFilter = styled.View`
-  flex: 0.12;
-  align-items: center;
+  width: 100%;
+  border-width: 9px;
+  border-color: #c0ccda;
   justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerCategory = styled.View`
-  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
-export const ContainerProduct = styled.View`
-  flex: 1;
-  flex-direction: row;
-  margin-bottom: 10px;
-  justify-content: center;
+export const ContainerProduct = styled.TouchableOpacity`
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: row;
 `;
 
 export const ContainerProductInfo = styled.View`
-  flex: 1;
-  margin-left: 15px;
+  width: 73%;
 `;
 
 export const ContainerBase = styled.View`
-  flex: 0.12;
+  height: 80px;
+  width: 100%;
 `;
 
 export const ListCategory = styled.FlatList`
-  flex: 1;
+  width: 100%;
   padding: 10px;
   background: ${({ theme }) => theme.Colors.WHITE};
 `;
 
-export const ListProduct = styled.FlatList`
-  flex: 1;
-`;
+export const ListProduct = styled.FlatList``;
 
 export const CategoryText = styled.Text`
   margin-bottom: 10px;

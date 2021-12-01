@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import type { ListRenderItem } from 'react-native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -17,9 +18,13 @@ import { CART_SCREEN, ITEM_SCREEN } from '~/constants/routes';
 
 import * as S from './styles';
 
-export function Home({ navigation }: any) {
+export function Home() {
+  const navigation = useNavigation();
   const { Colors } = useContext(ThemeContext);
 
+  const [productSelect, setProductSelect] = useState<ProductProps>(
+    {} as ProductProps,
+  );
   const [visible, setVisible] = useState(false);
   const [filterItems, setFilterItems] = useState('');
   const [listItems, setListItems] = useState<GroceryProps[] | []>([]);
@@ -46,8 +51,9 @@ export function Home({ navigation }: any) {
     setListItemsFilter(itemsFilter);
   }, [allListItems, filterItems]);
 
-  const showModal = useCallback(() => {
+  const showModal = useCallback((item: ProductProps) => {
     setVisible(true);
+    setProductSelect(item);
   }, []);
 
   useEffect(() => {
@@ -88,16 +94,16 @@ export function Home({ navigation }: any) {
 
   const renderProduct: ListRenderItem<ProductProps> = ({ item }) => {
     return (
-      <S.ContainerProduct onPress={() => showModal()}>
+      <S.ContainerProduct onPress={() => showModal(item)}>
         <S.ProductImg source={{ uri: item.image }} />
         <S.ContainerProductInfo>
           <S.ProductText>{item.name}</S.ProductText>
           <S.ProductUnity>
-            {item.quantity} un / {item.price} R$ cada
+            {item.quantity} un / R$ {item.price} cada
           </S.ProductUnity>
         </S.ContainerProductInfo>
 
-        <CheckBox />
+        <CheckBox isSelected={item.isSelected} product={item} />
       </S.ContainerProduct>
     );
   };
@@ -106,13 +112,15 @@ export function Home({ navigation }: any) {
     return (
       <S.ContainerCategory>
         <S.CategoryText>{item.name}</S.CategoryText>
-
-        <S.ListProduct
-          data={item.listItems}
-          extraData={item.listItems}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={renderProduct}
-        />
+        {item.listItems && (
+          <S.ListProduct
+            data={item.listItems}
+            extraData={item.listItems}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={renderProduct}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </S.ContainerCategory>
     );
   };
@@ -159,13 +167,17 @@ export function Home({ navigation }: any) {
           }}
           icon="plus"
           color={Colors.WHITE}
-          onPress={() => navigation.navigate(ITEM_SCREEN)}
+          onPress={() => navigation.navigate(ITEM_SCREEN, { item: '' })}
         />
 
         <S.ContainerBase>
           <BaseBoard name="clipboard-list" type="font-5" />
         </S.ContainerBase>
-        <ModalProduct visible={visible} setVisible={setVisible} />
+        <ModalProduct
+          visible={visible}
+          setVisible={setVisible}
+          productSelect={productSelect}
+        />
       </S.Container>
     </KeyboardAvoidingView>
   );

@@ -1,3 +1,4 @@
+import { useNavigation, useRoute } from '@react-navigation/core';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -11,18 +12,25 @@ import Select from '~/components/Select';
 
 import type { AplicationState } from '~/@types/Entity/AplicationState';
 import type { CategoryProps } from '~/@types/Entity/Category';
+import type { ProductProps } from '~/@types/Entity/Product';
 import logoIMG from '~/assets/groceries.png';
 import { CATEGORY_SCREEN } from '~/constants/routes';
 import { insertItemAction } from '~/store/ducks/grocery/actions';
 
-import { insertItem } from './utils';
+import { insertItem, updateItemInList } from './utils';
 
 import * as S from './styles';
 
-export function AddItem({ navigation }: any) {
-  const { Colors } = useContext(ThemeContext);
+export function AddItem() {
+  const navigation = useNavigation();
+  const route = useRoute();
 
   const dispatch = useDispatch();
+
+  const { Colors } = useContext(ThemeContext);
+
+  const { item } = route.params;
+
   const { groceryList } = useSelector(
     (state: AplicationState) => state.grocery,
   );
@@ -41,9 +49,17 @@ export function AddItem({ navigation }: any) {
       iconLeftName: 'arrowleft',
       iconLeftType: 'antDesign',
       iconColor: Colors.WHITE,
-      title: 'Cadastrar Produto',
+      title: item ? 'Editar produto' : 'Cadastrar Produto',
     });
-  }, [navigation, Colors]);
+
+    if (item) {
+      setName(item.name);
+      setQuantity(item.quantity);
+      setUnity(item.unity);
+      setPrice(item.price);
+      setCategory(item.category);
+    }
+  }, [navigation, Colors, item]);
 
   const newItem = useCallback(() => {
     const list = cloneDeep(groceryList);
@@ -70,6 +86,37 @@ export function AddItem({ navigation }: any) {
     dispatch,
     navigation,
   ]);
+
+  const updateItem = useCallback(
+    (item: ProductProps) => {
+      const listClone = cloneDeep(groceryList);
+      const newList = updateItemInList(
+        listClone,
+        item.category.id,
+        item.id,
+        image,
+        name,
+        quantity,
+        unity,
+        price,
+        category,
+      );
+
+      dispatch(insertItemAction(newList));
+      navigation.goBack();
+    },
+    [
+      category,
+      groceryList,
+      image,
+      name,
+      quantity,
+      unity,
+      price,
+      dispatch,
+      navigation,
+    ],
+  );
 
   return (
     <KeyboardAvoidingView
@@ -138,10 +185,10 @@ export function AddItem({ navigation }: any) {
 
         <S.ContainerButton>
           <Button
-            title="Salvar"
+            title={item ? 'Atualizar produto' : 'Salvar'}
             color={Colors.BLUE}
             fontColor={Colors.WHITE}
-            onPress={() => newItem()}
+            onPress={() => (item ? updateItem(item) : newItem())}
           />
         </S.ContainerButton>
       </S.Container>
