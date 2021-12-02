@@ -115,7 +115,7 @@ export function Home() {
         {item.listItems && (
           <S.ListProduct
             data={item.listItems}
-            extraData={item.listItems}
+            extraData={[item.listItems, listItems]}
             keyExtractor={(_, index) => String(index)}
             renderItem={renderProduct}
             showsVerticalScrollIndicator={false}
