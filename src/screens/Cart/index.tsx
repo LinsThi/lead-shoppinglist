@@ -183,7 +183,7 @@ export function Cart({ navigation }: any) {
           <BaseBoard
             name="md-cart"
             type="ionicons"
-            itensTotalCart={listItems.length + 1}
+            itensTotalCart={listItems.length}
             amountTotalCart={amountCart}
           />
         </S.ContainerBase>

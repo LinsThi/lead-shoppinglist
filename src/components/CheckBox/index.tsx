@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Checkbox } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeContext } from 'styled-components/native';
@@ -24,6 +24,10 @@ export function CheckBox({ isSelected, product }: CheckProductProps) {
   const { groceryList } = useSelector(
     (state: AplicationState) => state.grocery,
   );
+
+  useEffect(() => {
+    setChecked(isSelected);
+  }, [isSelected]);
 
   const handleChangeCheckedProduct = useCallback(() => {
     const listClone = cloneDeep(groceryList);
